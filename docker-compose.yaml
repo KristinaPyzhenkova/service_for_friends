@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: friend_web
+    restart: always
+    image: 1.0.0
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    command: sh -c "while ! nc -z db 5432; do sleep 1; done; python3 manage.py migrate; gunicorn app.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - static_value:/app/static
+      - media_volume:/app/mediafiles
+      - ./app/:/home/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - '8000:8000'
+  db:
+    container_name: friend_db
+    restart: always
+    image: postgres:14.2-alpine
+    volumes:
+      - ../friend-db/db/:/var/lib/postgresql/data/
+    env_file:
+      - .env.db
+
+volumes:
+  postgres_data:
+  media_volume:
+  static_value:

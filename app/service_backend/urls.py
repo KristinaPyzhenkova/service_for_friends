@@ -11,6 +11,7 @@ from service_backend.views import (
     FriendshipViewSet,
     FriendshipStatusViewSet
 )
+from service_backend.yasg import urlpatterns as doc_urls
 
 
 router = SimpleRouter()
@@ -20,7 +21,7 @@ router.register('application', ApplicationViewSet, basename='application')
 urlpatterns = [
     path('', include(router.urls)),
     path('token/', views.obtain_auth_token),
-    path('applications/<str:username>/', ApplicationAcceptViewSet.as_view(
+    path('application/<str:username>/', ApplicationAcceptViewSet.as_view(
         {'put': 'update'}), name='application-update'),
     path('friend/<str:username>/', FriendshipViewSet.as_view(
         {'put': 'update'}), name='friend-update'),
@@ -30,6 +31,7 @@ urlpatterns = [
         {'get': 'retrieve'}), name='status'),
 
 ]
+urlpatterns += doc_urls
 
 if settings.DEBUG:
     urlpatterns += static(

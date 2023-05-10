@@ -9,7 +9,6 @@ class UserAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'username',
-        'password',
     )
     search_fields = ['username']
 
