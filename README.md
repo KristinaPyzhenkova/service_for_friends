@@ -28,7 +28,7 @@ Cобрать статику:
 ```
 docker exec -it friend_web python manage.py collectstatic --no-input
 ```
-Проект доступен по адресу:
+Проект доступен по адресу (далее url):
 ```
 http://localhost/
 ```
