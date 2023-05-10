@@ -22,11 +22,11 @@ docker-compose up -d --build
 ```
 Создать суперпользователя:
 ```
-docker-compose exec friend_web python manage.py createsuperuser
+docker exec -it friend_web python manage.py createsuperuser
 ```
 Cобрать статику:
 ```
-docker-compose exec friend_web python manage.py collectstatic --no-input
+docker exec -it friend_web python manage.py collectstatic --no-input
 ```
 Проект доступен по адресу:
 ```
